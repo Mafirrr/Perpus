@@ -1,79 +1,85 @@
 @extends('layouts.backend.main')
-<style>
-    body{}
-</style>
 @section('content')
-<body>
-    <div class="container mt-4">
-        <h2 class="mb-4">📚 Daftar Buku</h2>
+    <main id="main" class="main">
 
-        <!-- Notifikasi -->
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+        <div class="pagetitle">
+            <h1>Daftar Buku</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                    <li class="breadcrumb-item">Katalog</li>
+                    <li class="breadcrumb-item active">Buku</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-        <!-- Tombol Tambah Buku (Modal) -->
-        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addBookModal">
-            ➕ Tambah Buku
-        </button>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">📚 Data Buku</h5>
 
-        <!-- Tabel Buku -->
-        <table class="table table-striped table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Judul</th>
-                    <th>Penulis</th>
-                    <th>Tahun</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($books as $book)
-                <tr>
-                    <td>{{ $book->id }}</td>
-                    <td>{{ $book->title }}</td>
-                    <td>{{ $book->author }}</td>
-                    <td>{{ $book->year }}</td>
-                    <td>
-                        <!-- Tombol Hapus -->
-                        <form action="/books/{{ $book->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">🗑 Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                            <!-- Tombol Tambah Buku -->
+                            <a href="{{route('buku.create')}}"  class="btn btn-success mb-3" >
+                                ➕ Tambah Buku
+                            </a>
+
+                            <!-- Table Buku -->
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">judul Buku</th>
+                                        <th scope="col">Jumlah Buku</th>
+                                        <th scope="col">Pengarang</th>
+                                        <th scope="col">Deskripsi</th>
+                                        <th scope="col">Tahun terbit</th>
+                                        <th scope="col">aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($books as $book)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $book->judul_buku}}</td>
+                                        <td>{{ $book->jumlah_buku }}</td>
+                                        <td>{{ $book->pengarang }}</td>
+                                        <td>{{ $book->deskripsi }}</td>
+                                        <td>{{ $book->tahunterbit}}</td>
+
+                                        <td class="col-sm-3">
+                                            <a href="{{route('buku.edit',$book->id)}}" class="btn btn-warning">Edit</a>
+                                            <!-- Tombol Hapus -->
+                                            <form action="{{ route('buku.destroy', $book->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                   <!-- Tombol Hapus -->
+
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table Buku -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <!-- Modal Tambah Buku -->
     <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addBookModalLabel">Tambah Buku</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <a href="{{route('buku.create')}}" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
                 </div>
-                <div class="modal-body">
-                    <form action="/books" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Judul</label>
-                            <input type="text" name="title" id="title" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="author" class="form-label">Penulis</label>
-                            <input type="text" name="author" id="author" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="year" class="form-label">Tahun</label>
-                            <input type="number" name="year" id="year" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">💾 Simpan Buku</button>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -81,5 +87,4 @@
 
     <!-- Script Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 @endsection
