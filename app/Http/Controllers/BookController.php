@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Book;
 class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index() {
+        $books = Book::all(); // Mengambil semua data buku
+    return view('layouts.backend.book', compact('books'));
+    }
 
     /**
      * Show the form for creating a new resource.
      */
+
     public function create()
     {
         //
