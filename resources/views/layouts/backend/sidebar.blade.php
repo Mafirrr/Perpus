@@ -127,8 +127,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
-                        <i class="bi bi-circle"></i><span>Data Tables</span>
+                    <a href="/users">
+                        <i class="bi bi-circle"></i><span>Tabel users</span>
                     </a>
                 </li>
             </ul>
