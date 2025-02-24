@@ -1,15 +1,18 @@
 <?php
 
-use App\Http\Controllers\BookController;
-
+use App\Http\Controllers\UserController;
 use App\Models\Book;
 
-use App\Http\Controllers\MemberController;
-
-use App\Http\Controllers\TransaksiController;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
+
+use App\Http\Controllers\BookController;
+
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\PeminjamanController;
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -28,6 +31,10 @@ Route::get('/admin', function () {
     // return view('layouts.backend.books',compact("books"));
     return view('admin');
 })->name('admin');
+
+//Transaksi Pengembalian
+Route::get('/pengembalian', [TransaksiController::class, 'index'])->name('pengembalian.index');
+Route::post('/pengembalian/update/{id}', [TransaksiController::class, 'updateStatus'])->name('pengembalian.update');
 
 
 // Route::middleware('auth')->group(function () {
@@ -49,7 +56,14 @@ Route::put('/buku/{id}', [BookController::class, 'update'])->name('buku.update')
 Route::delete('/buku/{id}', [BookController::class, 'destroy'])->name('buku.destroy');
 
 
+Route::get('/admin-book', [BookController::class, 'index'])->name('book');
+
 Route::resource('member', MemberController::class);
 
-Route::get('/admin-transaksi-pengembalian',[TransaksiController::class,'pengembalian'])->name('transaksi.pengembalian');
+Route::get('/admin-transaksi-pengembalian', [TransaksiController::class, 'pengembalian'])->name('transaksi.pengembalian');
+
+Route::resource('peminjaman', PeminjamanController::class);
+
+Route::resource('users', UserController::class);
+
 

@@ -181,13 +181,13 @@
         </li><!-- End Icons Nav -->
 
         <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('transaksi.pengembalian') ? '' : 'collapsed' }}"
+                <a class="nav-link {{ request()->routeIs('pengembalian.index') ? '' : 'collapsed' }}"
                     data-bs-target="#transaksi-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-journals"></i><span>Transaksi</span>
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="transaksi-nav"
-                    class="nav-content collapse {{ request()->routeIs('transaksi.pengembalian') ? 'show' : '' }}"
+                    class="nav-content collapse {{ request()->routeIs('pengembalian.index') ? 'show' : '' }}"
                     data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="#">
@@ -195,8 +195,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('transaksi.pengembalian') }}"
-                            class="{{ request()->routeIs('transaksi.pengembalian') ? 'active' : '' }}">
+                        <a href="{{ route('pengembalian.index') }}"
+                            class="{{ request()->routeIs('pengembalian.index') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Pengembalian</span>
                         </a>
                     </li>

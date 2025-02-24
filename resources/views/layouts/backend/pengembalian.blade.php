@@ -1,7 +1,6 @@
 @extends('layouts.backend.main')
 @section('content')
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Pengembalian Buku</h1>
             <nav>
@@ -11,95 +10,96 @@
                     <li class="breadcrumb-item active">Pengembalian</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
 
         <section class="section">
             <div class="row">
+                <!-- Tabel Pending -->
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Form Pending Pengembalian</h5>
-                            <div class="col-lg-12">
-
-
-                                <!-- Table with hoverable rows -->
-                                <table class="table table-hover">
-                                    <thead>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Kode Buku</th>
+                                        <th>Kode Anggota</th>
+                                        <th>Nama Anggota</th>
+                                        <th>Tanggal Pengembalian Awal</th>
+                                        <th>Tanggal Pengembalian Akhir</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pendings as $pending)
                                         <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Kode Buku</th>
-                                            <th scope="col">Kode Anggota</th>
-                                            <th scope="col">Nama Anggota</th>
-                                            <th scope="col">Tanggal Pengembalian Awal</th>
-                                            <th scope="col">Tanggal Pengembalian Akhir</th>
-                                            <th scope="col">Status Pengembalian</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>BU01</td>
-                                            <td>AA01</td>
-                                            <td>Ryomen Sukuna</td>
-                                            <td>20-02-2025</td>
-                                            <td>20-02-2025</td>
-                                            <td class="col-sm-2">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">Ubah Status</option>
-                                                    <option value="1">Dipinjam</option>
-                                                    <option value="2">Kembali</option>
-                                                    <option value="3">Hilang</option>
-                                                </select>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pending->kode_buku }}</td>
+                                            <td>{{ $pending->kode_anggota }}</td>
+                                            <td>{{ $pending->nama_anggota }}</td>
+                                            <td>{{ $pending->tanggal_pengembalian_awal }}</td>
+                                            <td>{{ $pending->tanggal_pengembalian_akhir }}</td>
+                                            <td>
+                                                <form action="{{ route('pengembalian.update', $pending->id) }}" method="POST">
+                                                    @csrf
+                                                    <select class="form-select" name="status_pengembalian"
+                                                        onchange="this.form.submit()">
+                                                        <option selected>Dipinjam</option>
+                                                        <option value="Kembali">Kembali</option>
+                                                        <option value="Hilang">Hilang</option>
+                                                    </select>
+                                                </form>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Table with hoverable rows -->
-                            </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
+                <!-- Tabel Pengembalian -->
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Form Pengembalian</h5>
-                            <div class="col-lg-12">
-
-
-                                <!-- Table with hoverable rows -->
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Kode Buku</th>
-                                            <th scope="col">Kode Anggota</th>
-                                            <th scope="col">Nama Anggota</th>
-                                            <th scope="col">Tanggal Pengembalian Awal</th>
-                                            <th scope="col">Tanggal Pengembalian Akhir</th>
-                                            <th scope="col">Status Pengembalian</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>BU01</td>
-                                            <td>AA01</td>
-                                            <td>Ryomen Sukuna</td>
-                                            <td>20-02-2025</td>
-                                            <td>20-02-2025</td>
-                                            <td class="text-center">
-                                                <span class="badge bg-success text-white">Kembali</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Table with hoverable rows -->
-                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Kode Buku</th>
+                                        <th>Kode Anggota</th>
+                                        <th>Nama Anggota</th>
+                                        <th>Tanggal Pengembalian Awal</th>
+                                        <th>Tanggal Pengembalian Akhir</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pengembalians as $pengembalian)
+                                                                <tr>
+                                                                    <td>{{ $loop->iteration }}</td>
+                                                                    <td>{{ $pengembalian->kode_buku }}</td>
+                                                                    <td>{{ $pengembalian->kode_anggota }}</td>
+                                                                    <td>{{ $pengembalian->nama_anggota }}</td>
+                                                                    <td>{{ $pengembalian->tanggal_pengembalian_awal }}</td>
+                                                                    <td>{{ $pengembalian->tanggal_pengembalian_akhir }}</td>
+                                                                    <td><span class="badge 
+                                                                    @if($pengembalian->status_pengembalian == 'Kembali') bg-success 
+                                                                    @elseif($pengembalian->status_pengembalian == 'Hilang') bg-danger 
+                                                                    @endif">
+                                                                            {{ $pengembalian->status_pengembalian }}
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 @endsection
