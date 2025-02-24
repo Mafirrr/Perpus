@@ -122,7 +122,7 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{route('book')}}">
+                    <a href="{{route('buku.index')}}">
                         <i class="bi bi-circle"></i><span>BOOKS</span>
                     </a>
                 </li>

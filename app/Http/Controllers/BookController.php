@@ -9,57 +9,72 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
     public function index() {
         $books = Book::all(); // Mengambil semua data buku
     return view('layouts.backend.book', compact('books'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function create(){
+        return view('layouts.backend.create');
 
-    public function create()
-    {
-        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+  public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'judul_buku' => 'required|string|max:255',
+            'jumlah_buku' => 'required|integer|min:1',
+            'pengarang' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'tahun_terbit' => 'required|integer|min:1900|max:' . date('Y'),
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        Book::create([
+            'judul_buku' => $request->judul_buku,
+            'jumlah_buku' => $request->jumlah_buku,
+            'pengarang' => $request->pengarang,
+            'deskripsi' => $request->deskripsi,
+            'tahunterbit' => $request->tahun_terbit,
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan.');
     }
+    public function edit($id)
+{
+    $buku = Book::findOrFail($id);
+    return view('layouts.backend.edit', compact('buku'));
+}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'judul_buku' => 'required|string|max:255',
+        'jumlah_buku' => 'required|integer|min:1',
+        'pengarang' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'tahun_terbit' => 'required|integer|min:1900|max:' . date('Y'),
+    ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    $buku = Book::findOrFail($id);
+    $buku->update([
+        'judul_buku' => $request->judul_buku,
+        'jumlah_buku' => $request->jumlah_buku,
+        'pengarang' => $request->pengarang,
+        'deskripsi' => $request->deskripsi,
+        'tahunterbit' => $request->tahun_terbit,
+    ]);
+
+    return redirect()->route('buku.index', $buku->id)->with('success', 'Buku berhasil diperbarui.');
+}
+public function destroy($id)
+{
+    $buku = Book::findOrFail($id);
+    $buku->delete();
+
+    return redirect()->route('buku.create')->with('success', 'Buku berhasil dihapus.');
+}
+
+
 }
