@@ -5,7 +5,7 @@
   <div class="main" id="main">
     <div class="card shadow-sm mt-4">
         <div class="card-header bg-success text-white">
-            <h4 class="mb-0">Tambah Buku</h4>
+            <h4 class="mb-0">Edit Buku</h4>
         </div>
         <div class="card-body">
             <form action="{{ route('buku.update', $buku->id) }}" method="POST">
