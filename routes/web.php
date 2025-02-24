@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Models\Book;
 
 use Illuminate\Support\Facades\DB;
@@ -51,3 +52,7 @@ Route::resource('member', MemberController::class);
 Route::get('/admin-transaksi-pengembalian', [TransaksiController::class, 'pengembalian'])->name('transaksi.pengembalian');
 
 Route::resource('peminjaman', PeminjamanController::class);
+
+Route::resource('users', UserController::class);
+
+
