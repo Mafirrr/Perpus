@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\BookController;
-
 use App\Models\Book;
 
-use App\Http\Controllers\MemberController;
-
-use App\Http\Controllers\TransaksiController;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
+
+use App\Http\Controllers\BookController;
+
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\PeminjamanController;
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -38,9 +40,10 @@ Route::get('/admin', function () {
 //     Route::get('/autocomplete/admins', [PeminjamanController::class, 'autocompleteAdmins'])->name('autocomplete.admins');
 //
 
-Route::get('/admin-book',[BookController::class,'index'])->name('book');
+Route::get('/admin-book', [BookController::class, 'index'])->name('book');
 
 Route::resource('member', MemberController::class);
 
-Route::get('/admin-transaksi-pengembalian',[TransaksiController::class,'pengembalian'])->name('transaksi.pengembalian');
+Route::get('/admin-transaksi-pengembalian', [TransaksiController::class, 'pengembalian'])->name('transaksi.pengembalian');
 
+Route::resource('peminjaman', PeminjamanController::class);
