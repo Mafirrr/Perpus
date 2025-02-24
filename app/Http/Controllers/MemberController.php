@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -11,7 +12,9 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        $member = Member::all();
+
+        return view('anggota.index', compact('member'));
     }
 
     /**
@@ -19,7 +22,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('anggota.tambah');
     }
 
     /**
@@ -27,7 +30,15 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $val = $request->validate([
+            'nama' => 'required',
+            'jurusan' => 'required',
+            'email' => 'required|email',
+            'tanggal_lahir' => 'required|date',
+        ]);
+
+        Member::create($val);
+        return redirect()->route('member.index');
     }
 
     /**
@@ -43,7 +54,9 @@ class MemberController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $member = Member::findOrFail($id);
+
+        return view('anggota.edit', compact('member'));
     }
 
     /**
@@ -51,7 +64,16 @@ class MemberController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $val = $request->validate([
+            'nama' => 'required',
+            'jurusan' => 'required',
+            'email' => 'required|email',
+            'tanggal_lahir' => 'required|date',
+        ]);
+
+        $member = Member::findOrFail($id);
+        $member->update($val);
+        return redirect()->route('member.index');
     }
 
     /**
@@ -59,6 +81,9 @@ class MemberController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $member = Member::findOrFail($id);
+        $member->delete();
+
+        return redirect()->route('member.index');
     }
 }

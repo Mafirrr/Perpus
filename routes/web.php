@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\BookController;
-<<<<<<< HEAD
+
 use App\Models\Book;
-=======
+
+use App\Http\Controllers\MemberController;
+
 use App\Http\Controllers\TransaksiController;
->>>>>>> 456c022c35050c6191ce546da3d5a96f7b42f075
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
@@ -27,7 +29,7 @@ Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
 
-<<<<<<< HEAD
+
 // Route::middleware('auth')->group(function () {
 //     Route::resource('books', BookController::class);
 //     Route::resource('peminjaman', PeminjamanController::class);
@@ -37,7 +39,8 @@ Route::get('/admin', function () {
 //
 
 Route::get('/admin-book',[BookController::class,'index'])->name('book');
-=======
-//Transaksi
+
+Route::resource('member', MemberController::class);
+
 Route::get('/admin-transaksi-pengembalian',[TransaksiController::class,'pengembalian'])->name('transaksi.pengembalian');
->>>>>>> 456c022c35050c6191ce546da3d5a96f7b42f075
+
