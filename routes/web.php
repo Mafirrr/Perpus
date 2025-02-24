@@ -31,6 +31,10 @@ Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
 
+//Transaksi Pengembalian
+Route::get('/pengembalian', [TransaksiController::class, 'index'])->name('pengembalian.index');
+Route::post('/pengembalian/update/{id}', [TransaksiController::class, 'updateStatus'])->name('pengembalian.update');
+
 
 // Route::middleware('auth')->group(function () {
 //     Route::resource('books', BookController::class);
