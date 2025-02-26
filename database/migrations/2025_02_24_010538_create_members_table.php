@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('jurusan');
-            $table->string('email')->default('-');
+            $table->string('email')->default('-')->unique();
             $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
         });
