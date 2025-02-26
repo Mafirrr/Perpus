@@ -15,6 +15,6 @@ class MemberSeeder extends Seeder
     public function run(): void
     {
         // Menambahkan 50 anggota dengan data yang sama
-        Member::factory()->count(50)->create();
+        Member::factory()->count(10)->create();
     }
 }

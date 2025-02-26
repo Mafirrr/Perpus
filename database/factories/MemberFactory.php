@@ -20,7 +20,7 @@ class MemberFactory extends Factory
             'nama' => $this->faker->name,
             'jurusan' => $this->faker->randomElement(['Teknik Informatika', 'Sistem Informasi', 'Manajemen', 'Akuntansi']),
             'email' => $this->faker->unique()->safeEmail,
-            'tanggal_lahir' => $this->faker->date(),
+            'tanggal_lahir' => $this->faker->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
         ];
     }
 }
